@@ -1,35 +1,34 @@
 <?php
 $x = 0;
 $y = 0;
+$answer = [];
+
 do {
-    $input = explode(" ", readline(''));
-    $arr[] = $input;
-    $answer[] = $input[0] . $input[1] . $input[2] . $input[3];
+    $input =explode(" ", readline(''));
+    if( $input[0] == "0000" or $input[1] == "0000" or $input[2] == "0000" or $input[3] == "0000"){
+        break;
+    }
+    $input2 =str_split($input[0].$input[1].$input[2].$input[3]);
+    $card = [];
+    $i = 1;
+    foreach ($input2 as $char)
+        $card[$i++] = $char;
+    for ($i = 1; $i <= 16; $i++) {
+        if ($i % 2 != 0) {
+            $card[$i] *= 2;
+            if ($card[$i] > 9) {
+                $card[$i] -= 9;
+            }
+        }
+    }
+    $sum = array_sum($card);
+    if ($sum % 10 == 0) {
+        $answer[] = "Yes";
+    } else {
+        $answer[] = "No";
+    }
+
 } while ($input[0] != "0000" or $input[1] != "0000" or $input[2] != "0000" or $input[3] != "0000");
-
-
-for ($x = 0; $x < count($answer) - 1; $x++) {
-    for ($y = 0; $y < 15; $y++) {
-        if (($y % 2) == 0) {
-            $m = $answer[$x][$y] * 2;
-        }
-        if ($m > 9) {
-            $m = $m - 9;
-        }
-        $sum[] = $m;
-    }
-    array_sum($sum);
+foreach ($answer as $gold){
+    echo $gold ."\n";
 }
-
-$sumeven = 0;
-$y = 0;
-$x = 0;
-for ($x = 0; $x < count($answer) - 1; $x++) {
-    if (($y % 2) != 0) {
-        for ($y = 0; $y < 16; $y++) {
-            $sumeven = $answer[$x][$y] + $sumeven;
-            $steptwo[] = $sumeven;
-        }
-    }
-}
-
